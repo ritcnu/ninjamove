@@ -1,15 +1,25 @@
 /* ============================================================
    GALLERY — ผลงานของเรา
    ★ เพิ่มรูปใหม่: อัปโหลดไฟล์ไว้ใน assets/images/gallery/
-     แล้วเพิ่มอีก 1 บรรทัดใน GALLERY_IMAGES ด้านล่าง ★
+     แล้วคัดลอกบล็อก { src, caption } เพิ่มใน GALLERY_IMAGES ด้านล่าง ★
    ============================================================ */
 'use strict';
 
 const GALLERY_IMAGES = [
-  { src: 'assets/images/gallery/work-01.jpg', caption: 'งานย้ายสำนักงาน' },
-  { src: 'assets/images/gallery/work-02.jpg', caption: 'งานย้ายบ้าน แพ็คและห่อกันกระแทก' },
-  { src: 'assets/images/gallery/work-03.jpg', caption: 'งานร้านกาแฟ แพ็คโต๊ะ-เก้าอี้' },
-  // { src: 'assets/images/gallery/work-04.jpg', caption: 'คำอธิบายรูป' },
+  {
+    src: 'assets/images/gallery/work-01.jpg',
+    caption: '✅ งานย้ายสำนักงาน ไป บ้านพัก 🏠\n📌 พิกัด กรมการกงสุล ค่ะ\n🙏 กราบขอบพระคุณลูกค้าที่ไว้วางใจใช้บริการเราค่ะ 🙏',
+  },
+  {
+    src: 'assets/images/gallery/work-02.jpg',
+    caption: '✅ งานย้ายบ้าน 🏠\n📌 พิกัด นนทบุรี คับ\n🙏 กราบขอบพระคุณลูกค้าที่ไว้วางใจใช้บริการเราค่ะ 🙏',
+  },
+  {
+    src: 'assets/images/gallery/work-03.jpg',
+    caption: '✅ งานร้านกาแฟ ☕\n📌 พิกัด ชลบุรี คับ\n🙏 กราบขอบพระคุณลูกค้าที่ไว้วางใจใช้บริการเราค่ะ 🙏',
+  },
+  // เพิ่มรูปใหม่: คัดลอกบล็อกด้านบนทั้งก้อน แก้ src และ caption
+  // (ขึ้นบรรทัดใหม่ในข้อความด้วย \n)
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -23,8 +33,17 @@ document.addEventListener('DOMContentLoaded', () => {
   GALLERY_IMAGES.forEach((g, i) => {
     const fig = document.createElement('figure');
     fig.className = 'gallery-item';
-    fig.innerHTML = `<img src="${g.src}" alt="${g.caption}" loading="lazy">` +
-      (g.caption ? `<figcaption><i class="fas fa-truck-fast"></i>${g.caption}</figcaption>` : '');
+    if (g.caption) {
+      const cap = document.createElement('div');
+      cap.className = 'gallery-cap';
+      cap.textContent = g.caption; // \n = ขึ้นบรรทัดใหม่
+      fig.appendChild(cap);
+    }
+    const img = document.createElement('img');
+    img.src = g.src;
+    img.alt = (g.caption || '').split('\n')[0];
+    img.loading = 'lazy';
+    fig.appendChild(img);
     fig.addEventListener('click', () => openBox(i));
     track.appendChild(fig);
   });
@@ -82,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const show = (i) => {
     cur = (i + GALLERY_IMAGES.length) % GALLERY_IMAGES.length;
     boxImg.src = GALLERY_IMAGES[cur].src;
-    boxImg.alt = GALLERY_IMAGES[cur].caption || '';
+    boxImg.alt = (GALLERY_IMAGES[cur].caption || '').split('\n')[0];
     boxCap.textContent = GALLERY_IMAGES[cur].caption || '';
   };
   function openBox(i) { show(i); box.classList.add('open'); document.body.style.overflow = 'hidden'; stop(); }
