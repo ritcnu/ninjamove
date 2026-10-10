@@ -1,0 +1,79 @@
+/* ============================================================
+   GALLERY / ผลงานของเรา — slider + lightbox
+   ปรับขนาดภาพได้ที่ตัวแปร 3 ตัวนี้
+   ============================================================ */
+#gallery{
+  --g-gap:20px;
+  --g-ratio:1 / 1;          /* สัดส่วนรูป เช่น 4 / 3 หรือ 16 / 9 */
+  --g-view:2.5;             /* จำนวนรูปที่เห็นพร้อมกัน (เดสก์ท็อป) */
+  background:#fff;
+  padding:90px 0;
+  border-top:1px solid var(--border-light);
+}
+.gallery-slider{position:relative}
+.gallery-track{
+  display:flex;gap:var(--g-gap);
+  overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
+  padding:6px 2px 18px;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch;
+}
+.gallery-track::-webkit-scrollbar{display:none}
+.gallery-item{
+  flex:0 0 calc((100% - var(--g-gap) * (var(--g-view) - 1)) / var(--g-view));
+  scroll-snap-align:start;
+  position:relative;margin:0;cursor:zoom-in;
+  border-radius:var(--radius-md);overflow:hidden;
+  background:var(--primary-dark);
+  box-shadow:var(--shadow-md);
+  transition:transform .3s ease,box-shadow .3s ease;
+}
+.gallery-item:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.gallery-item img{width:100%;aspect-ratio:var(--g-ratio);object-fit:cover;display:block;transition:transform .5s ease}
+.gallery-item:hover img{transform:scale(1.04)}
+.gallery-item figcaption{
+  position:absolute;left:0;right:0;bottom:0;
+  padding:38px 18px 16px;color:#fff;font-weight:600;font-size:.95rem;
+  background:linear-gradient(to top,rgba(8,15,58,.88),transparent);
+}
+.gallery-item figcaption i{color:var(--accent-gold);margin-right:8px}
+
+.gallery-nav{
+  position:absolute;top:calc(50% - 14px);transform:translateY(-50%);z-index:2;
+  width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;
+  background:#fff;color:var(--primary);font-size:1.05rem;
+  box-shadow:var(--shadow-md);transition:var(--transition);
+}
+.gallery-nav:hover{background:var(--accent-gold);color:#fff}
+.gallery-nav.prev{left:-14px}
+.gallery-nav.next{right:-14px}
+.gallery-nav[hidden]{display:none}
+
+.gallery-dots{display:flex;justify-content:center;gap:8px;margin-top:6px}
+.gallery-dots button{
+  width:10px;height:10px;border-radius:50px;border:none;padding:0;cursor:pointer;
+  background:var(--border-light);transition:var(--transition);
+}
+.gallery-dots button.active{width:28px;background:var(--accent-gold)}
+
+/* lightbox */
+.lightbox{
+  position:fixed;inset:0;z-index:2000;display:none;align-items:center;justify-content:center;
+  background:rgba(8,15,58,.94);padding:24px;
+}
+.lightbox.open{display:flex}
+.lightbox img{max-width:min(94vw,1000px);max-height:82vh;border-radius:var(--radius-md);box-shadow:var(--shadow-lg)}
+.lightbox-cap{position:absolute;left:0;right:0;bottom:22px;text-align:center;color:#fff;font-weight:600}
+.lightbox button{
+  position:absolute;border:none;cursor:pointer;color:#fff;background:rgba(255,255,255,.14);
+  width:46px;height:46px;border-radius:50%;font-size:1.1rem;transition:var(--transition);
+}
+.lightbox button:hover{background:var(--accent-gold)}
+.lightbox .lb-close{top:20px;right:20px}
+.lightbox .lb-prev{left:20px;top:50%;transform:translateY(-50%)}
+.lightbox .lb-next{right:20px;top:50%;transform:translateY(-50%)}
+
+@media(max-width:1024px){#gallery{--g-view:1.7}}
+@media(max-width:640px){
+  #gallery{--g-view:1.12;--g-gap:14px;padding:64px 0}
+  .gallery-nav{display:none}
+}
