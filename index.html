@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 <link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/gallery.css">
 <style>
 /* Floating contact buttons — custom addition, not part of style.css */
 .fab-wrap{position:fixed;right:20px;bottom:24px;z-index:1001;display:flex;flex-direction:column;gap:12px;align-items:flex-end}
@@ -41,8 +42,8 @@
       <li><a href="#services" class="nav-link">รถขนย้าย</a></li>
       <li><a href="#offer" class="nav-link">แถมฟรี</a></li>
       <li><a href="#promo-highlight" class="nav-link">โปรโมชั่น</a></li>
+      <li><a href="#gallery" class="nav-link">ผลงาน</a></li>
       <li><a href="#why-us" class="nav-link">ทำไมต้องเรา</a></li>
-      <li><a href="#work-gallery" class="nav-link">ผลงานของเรา</a></li>
       <li><a href="#contact" class="nav-link">ติดต่อเรา</a></li>
     </ul>
     <a href="tel:0955530999" class="btn-nav-cta"><i class="fas fa-phone-volume"></i> 095-553-0999</a>
@@ -54,8 +55,8 @@
     <li><a href="#services">รถขนย้าย</a></li>
     <li><a href="#offer">แถมฟรี</a></li>
     <li><a href="#promo-highlight">โปรโมชั่น</a></li>
+    <li><a href="#gallery">ผลงาน</a></li>
     <li><a href="#why-us">ทำไมต้องเรา</a></li>
-    <li><a href="#work-gallery">ผลงานของเรา</a></li>
     <li><a href="#contact">ติดต่อเรา</a></li>
   </ul>
   <a href="tel:0955530999" class="btn btn-gold w-full"><i class="fas fa-phone-volume"></i> โทร 095-553-0999</a>
@@ -126,7 +127,7 @@
       </div>
       <div style="flex:1;min-width:240px">
         <strong style="display:block;color:var(--primary-dark);font-size:1.05rem">จดทะเบียนนิติบุคคลถูกต้องตามกฎหมาย</strong>
-        <span style="color:#64748b;font-size:0.92rem">นินจามูฟ อยู่ภายใต้ บริษัท นิลมังกร เทค จำกัด &bull; ซึ่งจดทะเบียนกับกรมพัฒนาธุรกิจการค้า เมื่อวันที่ 4 มิถุนายน 2569 ณ สำนักงานทะเบียนหุ้นส่วนบริษัท จังหวัดศรีสะเกษ &mdash;
+        <span style="color:#64748b;font-size:0.92rem">บริษัท นิลมังกร เทค จำกัด &bull; จดทะเบียนกับกรมพัฒนาธุรกิจการค้า เมื่อวันที่ 4 มิถุนายน 2569 ณ สำนักงานทะเบียนหุ้นส่วนบริษัท จังหวัดศรีสะเกษ &mdash;
           <a href="assets/images/company-registration.jpg" target="_blank" rel="noopener noreferrer" style="color:var(--accent-cyan-d);font-weight:600;text-decoration:underline">ดูใบจดทะเบียนฉบับเต็ม</a>
         </span>
       </div>
@@ -227,6 +228,30 @@
   </div>
 </section>
 
+<!-- ============ GALLERY / ผลงานของเรา ============ -->
+<section id="gallery">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <span class="section-tag">ผลงานของเรา</span>
+      <h2>ตัวอย่างงานขนย้ายจริงจากทีมนินจามูฟ</h2>
+      <p>แพ็คเรียบร้อย ห่อกันกระแทก ขนย้ายอย่างระมัดระวังทุกชิ้น — เลื่อนดูหรือคลิกที่รูปเพื่อขยาย</p>
+    </div>
+    <div class="gallery-slider" data-aos="fade-up">
+      <button class="gallery-nav prev" id="galleryPrev" aria-label="รูปก่อนหน้า"><i class="fas fa-chevron-left"></i></button>
+      <div class="gallery-track" id="galleryTrack"><!-- รูปถูกสร้างจาก assets/js/gallery.js --></div>
+      <button class="gallery-nav next" id="galleryNext" aria-label="รูปถัดไป"><i class="fas fa-chevron-right"></i></button>
+      <div class="gallery-dots" id="galleryDots"></div>
+    </div>
+  </div>
+</section>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="ดูรูปขยาย">
+  <button class="lb-close" aria-label="ปิด"><i class="fas fa-xmark"></i></button>
+  <button class="lb-prev" aria-label="รูปก่อนหน้า"><i class="fas fa-chevron-left"></i></button>
+  <img src="" alt="">
+  <button class="lb-next" aria-label="รูปถัดไป"><i class="fas fa-chevron-right"></i></button>
+  <div class="lightbox-cap"></div>
+</div>
+
 <!-- ============ WHY US ============ -->
 <section id="why-us">
   <div class="container">
@@ -265,71 +290,6 @@
     </div>
   </div>
 </section>
-
-<!-- ============ WORK GALLERY ============ -->
-<!-- TODO: แทนที่รูปภาพตัวอย่างในโฟลเดอร์ assets/images/gallery/ (work-1.jpg - work-6.jpg)
-     ด้วยรูปภาพงานขนย้ายจริงของคุณ ขนาดแนะนำ 1200x800px ขึ้นไป แล้วแก้คำบรรยายด้านล่างให้ตรงกับรูป -->
-<section id="work-gallery">
-  <div class="container">
-    <div class="section-header" data-aos="fade-up">
-      <span class="section-tag">ผลงานของเรา</span>
-      <h2>ภาพบรรยากาศงานขนย้ายจริง</h2>
-      <p>ตัวอย่างงานขนย้ายที่ทีมนินจามูฟดูแลลูกค้ามาแล้วทั่วไทย คลิกที่รูปเพื่อดูขนาดใหญ่</p>
-    </div>
-    <div class="gallery-grid" id="galleryGrid">
-      <a href="assets/images/gallery/work-1.jpg" class="gallery-item" data-aos="fade-up" data-aos-delay="0" data-caption="ขนย้ายบ้านทั้งหลัง" data-sub="ทีมงานดูแลตั้งแต่แพ็คจนถึงขนขึ้นรถ">
-        <img src="assets/images/gallery/work-1.jpg" alt="ตัวอย่างงานขนย้ายบ้าน นินจามูฟ" loading="lazy">
-        <div class="gallery-item-overlay"><h4>ขนย้ายบ้านทั้งหลัง</h4><span>ทีมงานดูแลตั้งแต่แพ็คจนถึงขนขึ้นรถ</span></div>
-        <div class="gallery-zoom-badge"><i class="fas fa-expand"></i></div>
-      </a>
-      <a href="assets/images/gallery/work-2.jpg" class="gallery-item" data-aos="fade-up" data-aos-delay="50" data-caption="ขนย้ายคอนโด" data-sub="ลำเลียงของขึ้น-ลงอย่างปลอดภัย">
-        <img src="assets/images/gallery/work-2.jpg" alt="ตัวอย่างงานขนย้ายคอนโด นินจามูฟ" loading="lazy">
-        <div class="gallery-item-overlay"><h4>ขนย้ายคอนโด</h4><span>ลำเลียงของขึ้น-ลงอย่างปลอดภัย</span></div>
-        <div class="gallery-zoom-badge"><i class="fas fa-expand"></i></div>
-      </a>
-      <a href="assets/images/gallery/work-3.jpg" class="gallery-item" data-aos="fade-up" data-aos-delay="100" data-caption="แพ็คสินค้าก่อนขนย้าย" data-sub="อุปกรณ์กันกระแทกครบ ป้องกันของเสียหาย">
-        <img src="assets/images/gallery/work-3.jpg" alt="ตัวอย่างการแพ็คสินค้า นินจามูฟ" loading="lazy">
-        <div class="gallery-item-overlay"><h4>แพ็คสินค้าก่อนขนย้าย</h4><span>อุปกรณ์กันกระแทกครบ ป้องกันของเสียหาย</span></div>
-        <div class="gallery-zoom-badge"><i class="fas fa-expand"></i></div>
-      </a>
-      <a href="assets/images/gallery/work-4.jpg" class="gallery-item" data-aos="fade-up" data-aos-delay="150" data-caption="ขนย้ายออฟฟิศ" data-sub="จัดการโต๊ะ ตู้เอกสาร อุปกรณ์สำนักงานครบวงจร">
-        <img src="assets/images/gallery/work-4.jpg" alt="ตัวอย่างงานขนย้ายออฟฟิศ นินจามูฟ" loading="lazy">
-        <div class="gallery-item-overlay"><h4>ขนย้ายออฟฟิศ</h4><span>จัดการโต๊ะ ตู้เอกสาร อุปกรณ์สำนักงานครบวงจร</span></div>
-        <div class="gallery-zoom-badge"><i class="fas fa-expand"></i></div>
-      </a>
-      <a href="assets/images/gallery/work-5.jpg" class="gallery-item" data-aos="fade-up" data-aos-delay="200" data-caption="ถอด-ประกอบเฟอร์นิเจอร์" data-sub="ทีมช่างมืออาชีพ ถอด-ติดตั้งให้ถึงที่หมาย">
-        <img src="assets/images/gallery/work-5.jpg" alt="ตัวอย่างงานถอดประกอบเฟอร์นิเจอร์ นินจามูฟ" loading="lazy">
-        <div class="gallery-item-overlay"><h4>ถอด-ประกอบเฟอร์นิเจอร์</h4><span>ทีมช่างมืออาชีพ ถอด-ติดตั้งให้ถึงที่หมาย</span></div>
-        <div class="gallery-zoom-badge"><i class="fas fa-expand"></i></div>
-      </a>
-      <a href="assets/images/gallery/work-6.jpg" class="gallery-item" data-aos="fade-up" data-aos-delay="250" data-caption="ขนย้ายข้ามจังหวัด" data-sub="รถหลายขนาด รองรับงานทั่วไทย">
-        <img src="assets/images/gallery/work-6.jpg" alt="ตัวอย่างงานขนย้ายข้ามจังหวัด นินจามูฟ" loading="lazy">
-        <div class="gallery-item-overlay"><h4>ขนย้ายข้ามจังหวัด</h4><span>รถหลายขนาด รองรับงานทั่วไทย</span></div>
-        <div class="gallery-zoom-badge"><i class="fas fa-expand"></i></div>
-      </a>
-    </div>
-    <div class="gallery-more" data-aos="fade-up">
-      <a href="https://www.facebook.com/ninjaamove" target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark"><i class="fab fa-facebook-f"></i> ดูผลงานเพิ่มเติมบน Facebook</a>
-    </div>
-  </div>
-</section>
-
-<!-- Lightbox markup for the work gallery (filled/controlled by script.js) -->
-<div class="gallery-lightbox" id="galleryLightbox">
-  <div class="gallery-lightbox-stage">
-    <button class="gallery-lightbox-close" id="galleryClose" aria-label="ปิด"><i class="fas fa-xmark"></i></button>
-    <button class="gallery-lightbox-prev" id="galleryPrev" aria-label="รูปก่อนหน้า"><i class="fas fa-chevron-left"></i></button>
-    <button class="gallery-lightbox-next" id="galleryNext" aria-label="รูปถัดไป"><i class="fas fa-chevron-right"></i></button>
-    <div class="gallery-lightbox-frame">
-      <img src="" alt="" id="galleryLightboxImg">
-    </div>
-    <div class="gallery-lightbox-caption">
-      <h4 id="galleryLightboxTitle"></h4>
-      <span id="galleryLightboxSub"></span>
-    </div>
-    <div class="gallery-lightbox-counter" id="galleryLightboxCounter"></div>
-  </div>
-</div>
 
 <!-- ============ STATS ============ -->
 <section id="stats">
@@ -372,7 +332,7 @@
       <div class="social-links">
         <a href="https://www.facebook.com/ninjaamove" target="_blank" rel="noopener noreferrer" class="social-btn facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
         <a href="https://line.me/ti/p/~@114xqwix" target="_blank" rel="noopener noreferrer" class="social-btn line"><i class="fab fa-line"></i> LINE</a>
-        <a href="https://nilmangkorn.tech/" target="_blank" rel="noopener noreferrer" class="social-btn website"><i class="fas fa-globe"></i> เว็บไซต์</a>
+        <a href="https://ninjamove.asia/" target="_blank" rel="noopener noreferrer" class="social-btn website"><i class="fas fa-globe"></i> เว็บไซต์</a>
       </div>
       <div style="display:flex;align-items:center;gap:16px;background:var(--primary-dark);border-radius:var(--radius-md);padding:16px;margin-top:16px">
         <img src="assets/images/line-qr.jpg" alt="QR Code เพิ่มเพื่อน LINE นินจามูฟ" style="width:80px;height:80px;border-radius:10px;background:#fff;padding:4px">
@@ -455,6 +415,7 @@
         <ul>
           <li><a href="#hero">หน้าแรก</a></li>
           <li><a href="#promo-highlight">โปรโมชั่น</a></li>
+          <li><a href="#gallery">ผลงานของเรา</a></li>
           <li><a href="#why-us">ทำไมต้องเรา</a></li>
           <li><a href="#contact">ติดต่อเรา</a></li>
         </ul>
@@ -487,5 +448,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script src="assets/js/script.js"></script>
+<script src="assets/js/gallery.js"></script>
 </body>
 </html>
