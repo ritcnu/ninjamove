@@ -8,12 +8,14 @@
 // Init AOS
 // ──────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-  AOS.init({
-    duration: 700,
-    once: true,
-    offset: 60,
-    easing: 'ease-out-cubic',
-  });
+  if (typeof AOS !== 'undefined') {
+    AOS.init({
+      duration: 700,
+      once: true,
+      offset: 60,
+      easing: 'ease-out-cubic',
+    });
+  }
 
   initNavbar();
   initMobileMenu();
@@ -23,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBackToTop();
   initSmoothScroll();
   initActiveNavLink();
+  initGalleryLightbox();
 });
 
 // ──────────────────────────────────────────────
@@ -311,6 +314,89 @@ function showToast(message, type = 'success') {
     toast.classList.remove('show');
     setTimeout(() => toast.remove(), 400);
   }, 4000);
+}
+
+// ──────────────────────────────────────────────
+// WORK GALLERY — lightbox / slideshow
+// ──────────────────────────────────────────────
+function initGalleryLightbox() {
+  const items = Array.from(document.querySelectorAll('#galleryGrid .gallery-item'));
+  const lightbox = document.getElementById('galleryLightbox');
+  if (!items.length || !lightbox) return;
+
+  const imgEl = document.getElementById('galleryLightboxImg');
+  const titleEl = document.getElementById('galleryLightboxTitle');
+  const subEl = document.getElementById('galleryLightboxSub');
+  const counterEl = document.getElementById('galleryLightboxCounter');
+  const closeBtn = document.getElementById('galleryClose');
+  const prevBtn = document.getElementById('galleryPrev');
+  const nextBtn = document.getElementById('galleryNext');
+
+  const slides = items.map((el) => ({
+    src: el.getAttribute('href'),
+    title: el.dataset.caption || '',
+    sub: el.dataset.sub || '',
+  }));
+
+  let current = 0;
+
+  const render = () => {
+    const slide = slides[current];
+    imgEl.src = slide.src;
+    imgEl.alt = slide.title;
+    titleEl.textContent = slide.title;
+    subEl.textContent = slide.sub;
+    counterEl.textContent = `${current + 1} / ${slides.length}`;
+  };
+
+  const open = (index) => {
+    current = index;
+    render();
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+
+  const close = () => {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  const show = (delta) => {
+    current = (current + delta + slides.length) % slides.length;
+    render();
+  };
+
+  items.forEach((el, index) => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      open(index);
+    });
+  });
+
+  closeBtn.addEventListener('click', close);
+  prevBtn.addEventListener('click', () => show(-1));
+  nextBtn.addEventListener('click', () => show(1));
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) close();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') show(-1);
+    if (e.key === 'ArrowRight') show(1);
+  });
+
+  // Basic swipe support for touch devices
+  let touchStartX = null;
+  lightbox.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  lightbox.addEventListener('touchend', (e) => {
+    if (touchStartX === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) show(dx > 0 ? -1 : 1);
+    touchStartX = null;
+  }, { passive: true });
 }
 
 // ──────────────────────────────────────────────
