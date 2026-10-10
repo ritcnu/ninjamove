@@ -30,3 +30,6 @@
 .upload-warn a{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:50px;color:#fff;font-weight:600;font-size:.85rem}
 .upload-warn .uw-line{background:#06c755}
 .upload-warn .uw-mess{background:linear-gradient(135deg,#00c6ff,#0068ff)}
+
+/* ลิงก์ตรงไปที่ฟอร์ม (เช่น ส่งให้ลูกค้าทาง Messenger) ไม่ให้ถูกแถบเมนูด้านบนบัง */
+#contactForm{scroll-margin-top:96px}
