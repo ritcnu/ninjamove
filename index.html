@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 <link rel="stylesheet" href="assets/css/style.css">
 <link rel="stylesheet" href="assets/css/gallery.css">
+<link rel="stylesheet" href="assets/css/upload.css">
 <style>
 /* Floating contact buttons — custom addition, not part of style.css */
 .fab-wrap{position:fixed;right:20px;bottom:24px;z-index:1001;display:flex;flex-direction:column;gap:12px;align-items:flex-end}
@@ -323,7 +324,7 @@
       <h2>พร้อมให้บริการทุกวัน<br>ตลอด 24 ชั่วโมง</h2>
       <p>สอบถามและจองคิวขนย้ายได้ทันที ทีมงานพร้อมประเมินราคาให้ฟรี</p>
       <div class="contact-items">
-        <a href="tel:0955530999" class="contact-item"><div class="ci-icon"><i class="fas fa-phone-volume"></i></div><div class="ci-text"><strong>โทรศัพท์</strong><a href="tel:0955530999">095-553-0999</a></div></a>
+        <a href="tel:0955530999" class="contact-item"><div class="ci-icon"><i class="fas fa-phone-volume"></i></div><div class="ci-text"><strong>โทรศัพท์</strong><span>095-553-0999</span></div></a>
         <a href="https://line.me/ti/p/~@114xqwix" target="_blank" rel="noopener noreferrer" class="contact-item"><div class="ci-icon line-icon"><i class="fab fa-line"></i></div><div class="ci-text"><strong>LINE Official Account</strong><span>@114xqwix</span></div></a>
         <a href="https://m.me/ninjaamove" target="_blank" rel="noopener noreferrer" class="contact-item"><div class="ci-icon"><i class="fab fa-facebook-messenger"></i></div><div class="ci-text"><strong>Facebook Inbox</strong><span>m.me/ninjaamove</span></div></a>
         <div class="contact-item"><div class="ci-icon"><i class="fas fa-location-dot"></i></div><div class="ci-text"><strong>ที่อยู่</strong><span>1502/69 ถ.ขุขันธ์ ต.เมืองใต้ อ.เมือง จ.ศรีสะเกษ 33000</span></div></div>
@@ -377,6 +378,26 @@
         <div class="form-group">
           <label>สิ่งของที่ต้องการขนย้าย / รายละเอียดเพิ่มเติม</label>
           <textarea name="message" rows="3" placeholder="เช่น เฟอร์นิเจอร์ ตู้เย็น เครื่องซักผ้า จำนวนกล่อง ฯลฯ"></textarea>
+        </div>
+        <div class="form-group">
+          <label>แนบรูปภาพสิ่งของที่จะขนย้าย <span class="upload-limit">(ไม่เกิน 10 รูป)</span></label>
+          <label class="upload-box" for="photoInput">
+            <i class="fas fa-camera"></i>
+            <span><strong>แตะเพื่อเลือกรูป</strong> หรือถ่ายรูปจากมือถือ</span>
+            <small>ช่วยให้ทีมงานประเมินราคาได้แม่นยำขึ้น</small>
+          </label>
+          <input type="file" id="photoInput" accept="image/*" multiple hidden>
+          <input type="hidden" name="photosData" id="photosData">
+          <input type="hidden" name="photoCount" id="photoCount" value="0">
+          <div class="upload-count" id="photoCounter" hidden></div>
+          <div class="upload-preview" id="photoPreview"></div>
+          <div class="upload-warn" id="photoWarn" hidden>
+            <p><i class="fas fa-circle-exclamation"></i> แนบรูปได้ไม่เกิน 10 รูป หากมีรูปมากกว่านี้ กรุณาส่งเพิ่มทางไลน์หรืออินบ็อกซ์ Messenger</p>
+            <div>
+              <a href="https://line.me/ti/p/~@114xqwix" target="_blank" rel="noopener noreferrer" class="uw-line"><i class="fab fa-line"></i> ส่งทาง LINE</a>
+              <a href="https://m.me/ninjaamove" target="_blank" rel="noopener noreferrer" class="uw-mess"><i class="fab fa-facebook-messenger"></i> ส่งทาง Messenger</a>
+            </div>
+          </div>
         </div>
         <button type="submit" class="btn btn-primary btn-lg w-full"><i class="fas fa-paper-plane"></i> ส่งข้อความ</button>
         <p class="form-note"><i class="fas fa-shield-halved"></i> ข้อมูลของคุณจะถูกเก็บเป็นความลับ ไม่เปิดเผยต่อบุคคลที่สาม</p>
@@ -449,5 +470,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script src="assets/js/script.js"></script>
 <script src="assets/js/gallery.js"></script>
+<script src="assets/js/upload.js"></script>
 </body>
 </html>
