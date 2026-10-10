@@ -21,21 +21,22 @@
 .gallery-item{
   flex:0 0 calc((100% - var(--g-gap) * (var(--g-view) - 1)) / var(--g-view));
   scroll-snap-align:start;
-  position:relative;margin:0;cursor:zoom-in;
+  display:flex;flex-direction:column;margin:0;cursor:zoom-in;
   border-radius:var(--radius-md);overflow:hidden;
-  background:var(--primary-dark);
+  background:#fff;border:1px solid var(--border-light);
   box-shadow:var(--shadow-md);
   transition:transform .3s ease,box-shadow .3s ease;
 }
 .gallery-item:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
-.gallery-item img{width:100%;aspect-ratio:var(--g-ratio);object-fit:cover;display:block;transition:transform .5s ease}
-.gallery-item:hover img{transform:scale(1.04)}
-.gallery-item figcaption{
-  position:absolute;left:0;right:0;bottom:0;
-  padding:38px 18px 16px;color:#fff;font-weight:600;font-size:.95rem;
-  background:linear-gradient(to top,rgba(8,15,58,.88),transparent);
+.gallery-cap{
+  white-space:pre-line;           /* ให้ \n ในข้อความขึ้นบรรทัดใหม่ */
+  padding:16px 18px;min-height:7.6em;
+  font-size:.92rem;line-height:1.65;font-weight:600;color:var(--primary-dark);
+  background:linear-gradient(180deg,#fffaf0,#fff);
+  border-bottom:3px solid var(--accent-gold);
 }
-.gallery-item figcaption i{color:var(--accent-gold);margin-right:8px}
+.gallery-item img{width:100%;aspect-ratio:var(--g-ratio);object-fit:cover;display:block;margin-top:auto;transition:transform .5s ease}
+.gallery-item:hover img{transform:scale(1.03)}
 
 .gallery-nav{
   position:absolute;top:calc(50% - 14px);transform:translateY(-50%);z-index:2;
@@ -61,8 +62,8 @@
   background:rgba(8,15,58,.94);padding:24px;
 }
 .lightbox.open{display:flex}
-.lightbox img{max-width:min(94vw,1000px);max-height:82vh;border-radius:var(--radius-md);box-shadow:var(--shadow-lg)}
-.lightbox-cap{position:absolute;left:0;right:0;bottom:22px;text-align:center;color:#fff;font-weight:600}
+.lightbox img{max-width:min(94vw,1000px);max-height:70vh;border-radius:var(--radius-md);box-shadow:var(--shadow-lg)}
+.lightbox-cap{position:absolute;left:0;right:0;bottom:18px;padding:0 70px;text-align:center;color:#fff;font-weight:600;white-space:pre-line;line-height:1.6}
 .lightbox button{
   position:absolute;border:none;cursor:pointer;color:#fff;background:rgba(255,255,255,.14);
   width:46px;height:46px;border-radius:50%;font-size:1.1rem;transition:var(--transition);

@@ -1,0 +1,32 @@
+/* ============================================================
+   FORM — อัปโหลดรูป + แก้ checkbox ในฟอร์ม
+   ============================================================ */
+/* style.css ตั้ง input เป็น width:100% ทำให้ checkbox ยืดเพี้ยน */
+.contact-form input[type="checkbox"]{width:auto;padding:0;flex:none;accent-color:var(--primary)}
+
+.upload-limit{font-weight:500;color:#64748b;font-size:.85rem}
+.upload-box{
+  display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;cursor:pointer;
+  padding:22px 16px;border:2px dashed #cbd5e1;border-radius:var(--radius-md);background:var(--bg-light);
+  transition:var(--transition);color:var(--text-body);font-weight:400;
+}
+.upload-box:hover{border-color:var(--accent-cyan);background:#f0fbfd}
+.upload-box i{font-size:1.7rem;color:var(--accent-cyan-d)}
+.upload-box strong{color:var(--primary)}
+.upload-box small{color:#94a3b8;font-size:.8rem}
+.upload-count{margin-top:10px;font-size:.85rem;font-weight:600;color:var(--primary)}
+.upload-preview{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:10px;margin-top:10px}
+.upload-preview:empty{display:none}
+.up-thumb{position:relative;aspect-ratio:1/1;border-radius:10px;overflow:hidden;border:1px solid var(--border-light);background:#fff}
+.up-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.up-thumb button{
+  position:absolute;top:4px;right:4px;width:22px;height:22px;border:none;border-radius:50%;cursor:pointer;
+  background:rgba(8,15,58,.8);color:#fff;font-size:.7rem;line-height:1;display:flex;align-items:center;justify-content:center;
+}
+.up-thumb button:hover{background:#ef4444}
+.upload-warn{margin-top:12px;padding:14px 16px;border-radius:var(--radius-sm);background:#fff7ed;border:1px solid #fdba74;color:#9a3412;font-size:.88rem}
+.upload-warn p{margin:0 0 10px}
+.upload-warn div{display:flex;flex-wrap:wrap;gap:10px}
+.upload-warn a{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:50px;color:#fff;font-weight:600;font-size:.85rem}
+.upload-warn .uw-line{background:#06c755}
+.upload-warn .uw-mess{background:linear-gradient(135deg,#00c6ff,#0068ff)}
