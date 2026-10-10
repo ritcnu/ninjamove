@@ -329,7 +329,7 @@ function initBackToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 }
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzUCicDF9VGNry8zYy5LoDVtLuvrICxHzkg_9O7HsDXrRKxgt3uqPLnvE6LFXgPM3kJJg/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwBE6V3MyZqDxS_w5iOL0bc2GKujjYuPi2JdxrijqrLMaqzj62D2Lpl4rjUEpcOMP1JZQ/exec";
 
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
