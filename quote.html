@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<!-- กว้างคงที่ 860px ให้มือถือย่อทั้งหน้าพอดีจอ รูปที่ดาวน์โหลดจึงเหมือนกันทุกเครื่อง -->
+<meta name="viewport" content="width=860">
+<meta name="robots" content="noindex,nofollow">
+<title>ใบเสนอราคา | นินจามูฟ Ninja Move</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#1e4a99;--ink:#1a1a2e;--muted:#6b7280;--line:#d9dde5}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Sarabun',sans-serif;background:#e9edf3;color:var(--ink);padding:20px 0 60px}
+.toolbar{width:820px;margin:0 auto 16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.toolbar button{font-family:inherit;font-size:20px;font-weight:700;padding:12px 22px;border:none;border-radius:50px;cursor:pointer;background:var(--blue);color:#fff}
+.toolbar button.alt{background:#fff;color:var(--blue);border:2px solid var(--blue)}
+.toolbar button:disabled{opacity:.5;cursor:wait}
+.toolbar .hint{font-size:16px;color:var(--muted);flex-basis:100%}
+#status{width:820px;margin:0 auto 14px;font-size:20px;font-weight:600;color:#b45309}
+#status.err{color:#b91c1c}
+
+/* ---------- กระดาษใบเสนอราคา (ส่วนที่ถูกแปลงเป็นรูป) ---------- */
+#paper{width:820px;margin:0 auto;background:#fff;padding:28px 30px 22px;font-size:19px;line-height:1.5}
+#paper[contenteditable="true"]{outline:3px dashed #f59e0b}
+.hd{display:flex;gap:18px;align-items:flex-start;margin-bottom:14px}
+.hd img{width:118px;height:118px;object-fit:cover;border-radius:10px}
+.hd .l{flex:1}
+.hd .co{font-size:35px;font-weight:800;color:var(--blue);line-height:1.15}
+.hd .legal{font-size:25px;font-weight:700}
+.hd .tag{font-style:italic;color:var(--blue);font-size:19px}
+.hd .tax{color:var(--muted);font-size:17px}
+.hd .r{text-align:right;min-width:230px}
+.hd .r .t{font-size:40px;font-weight:800;color:var(--blue);line-height:1.15}
+.hd .r .en{color:var(--muted);font-size:20px}
+.hd .r .meta{color:var(--muted);font-size:18px}
+
+.bar{background:var(--blue);color:#fff;font-weight:700;font-size:21px;padding:2px 10px;margin-top:12px}
+.row2{display:grid;grid-template-columns:1fr 1fr}
+.kv{display:grid;grid-template-columns:130px 1fr;padding:1px 10px;border-bottom:1px solid #eef0f4}
+.kv b{font-weight:700}
+.kv span{word-break:break-word}
+
+.th,.tr{display:grid;grid-template-columns:70px 1fr 110px 190px}
+.th{background:var(--blue);color:#fff;font-weight:700;text-align:center;padding:2px 0;margin-top:2px}
+.tr{border-bottom:1px solid var(--line)}
+.tr>div{padding:8px 10px}
+.tr .c{text-align:center;align-self:center}
+.tr .m{text-align:right;align-self:center;font-size:22px}
+.ln{display:flex;gap:8px;align-items:flex-start;margin-bottom:3px}
+.ck{flex:none;width:22px;height:22px;margin-top:3px;border-radius:5px;background:#22a05a;color:#fff;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.rem{display:grid;grid-template-columns:90px 1fr;border-bottom:1px solid var(--line);padding:4px 10px;font-weight:700}
+.rem span{font-weight:400}
+
+.tot{display:grid;grid-template-columns:1fr 190px;font-weight:700}
+.tot>div{padding:3px 10px}
+.tot .a{text-align:right}
+.tot .n{text-align:right}
+.t1{background:#ececec}.t2{background:#fbeec2}.t3{background:#dbe7f5}
+
+.notes{margin-top:18px;font-size:19px}
+.notes b.h{font-size:21px}
+.notes p{margin-top:2px}
+.bank{font-weight:700;margin-top:6px}
+.sign{display:grid;grid-template-columns:1fr 1fr;margin-top:26px;text-align:center}
+.sign .line{border-top:1px solid #999;width:260px;margin:30px auto 4px}
+.sign .nm{font-size:22px;min-height:30px}
+.ft{margin-top:22px;text-align:center;color:#9aa0ac;font-size:16px;border-top:1px solid #eef0f4;padding-top:8px}
+
+@media print{
+  body{background:#fff;padding:0}
+  .toolbar,#status{display:none}
+  #paper{box-shadow:none;margin:0;width:100%}
+  @page{margin:10mm}
+}
+</style>
+</head>
+<body>
+
+<div class="toolbar" id="toolbar">
+  <button id="btnDownload" disabled>⬇️ ดาวน์โหลดเป็นรูป (PNG)</button>
+  <button id="btnShare" class="alt" disabled>📤 แชร์ไปยัง LINE / Messenger</button>
+  <button id="btnPrint" class="alt">🖨️ พิมพ์ / PDF</button>
+  <button id="btnEdit" class="alt">✏️ แก้ข้อความ</button>
+  <div class="hint">แก้ราคา/รายละเอียดในชีตแล้วเปิดลิงก์นี้ใหม่ ข้อมูลจะอัปเดตเอง · ปุ่ม "แก้ข้อความ" ใช้แก้คำผิดเล็กน้อยก่อนดาวน์โหลด</div>
+</div>
+<div id="status">กำลังโหลดใบเสนอราคา...</div>
+
+<div id="paper" hidden>
+  <div class="hd">
+    <img src="assets/images/logo.jpg" alt="นินจามูฟ">
+    <div class="l">
+      <div class="co">นินจามูฟ (Ninja Move)</div>
+      <div class="legal">บริษัท นิลมังกร เทค จำกัด</div>
+      <div class="tag">บริการขนย้าย คอนโด ห้องพัก - Moving Without Limits</div>
+      <div class="tax">เลขประจำตัวผู้เสียภาษีอากร: 0335569000914</div>
+    </div>
+    <div class="r">
+      <div class="t">ใบเสนอราคา</div>
+      <div class="en">QUOTATION</div>
+      <div class="meta">เลขที่ <span id="q-no"></span></div>
+      <div class="meta">วันที่ (Date): <span id="q-date"></span></div>
+    </div>
+  </div>
+
+  <div class="row2">
+    <div class="bar">ข้อมูลลูกค้า (Customer)</div>
+    <div class="bar">ข้อมูลการขนย้าย (Moving Details)</div>
+    <div>
+      <div class="kv"><b>ชื่อลูกค้า:</b><span id="q-name"></span></div>
+      <div class="kv"><b>เบอร์โทร:</b><span id="q-phone"></span></div>
+    </div>
+    <div>
+      <div class="kv"><b>วันที่ขนย้าย:</b><span id="q-move"></span></div>
+      <div class="kv"><b>ประเภทบริการ:</b><span id="q-svc"></span></div>
+    </div>
+  </div>
+
+  <div class="bar">สถานที่และเส้นทางการขนย้าย</div>
+  <div class="kv" style="grid-template-columns:130px 1fr"><b>ต้นทาง:</b><span id="q-from"></span></div>
+  <div class="kv" style="grid-template-columns:130px 1fr"><b>ปลายทาง:</b><span id="q-to"></span></div>
+
+  <div class="bar">รายละเอียดสิ่งของและเงื่อนไขบริการ</div>
+  <div class="kv" style="grid-template-columns:160px 1fr"><b>รายละเอียดสิ่งของ:</b><span id="q-items"></span></div>
+  <div class="kv" style="grid-template-columns:160px 1fr"><b>ยานพาหนะ:</b><span id="q-vehicle"></span></div>
+
+  <div class="bar">รายการค่าบริการ</div>
+  <div class="th"><div>ลำดับ</div><div>รายการบริการ</div><div>จำนวน</div><div>จำนวนเงิน (บาท)</div></div>
+  <div class="tr">
+    <div class="c">1</div>
+    <div id="q-lines"></div>
+    <div class="c">1 งาน</div>
+    <div class="m" id="q-price"></div>
+  </div>
+  <div class="rem"><b>หมายเหตุ</b><span id="q-note"></span></div>
+
+  <div class="tot t1"><div class="a">รวมเป็นเงินทั้งสิ้น</div><div class="n" id="t-total"></div></div>
+  <div class="tot t2"><div class="a">มัดจำ <span id="t-pct"></span>% (ยืนยันคิว)</div><div class="n" id="t-deposit"></div></div>
+  <div class="tot t3"><div class="a">คงเหลือชำระหน้างาน</div><div class="n" id="t-balance"></div></div>
+
+  <div class="notes">
+    <b class="h">หมายเหตุ / เงื่อนไข:</b>
+    <p>• *** เงื่อนไขเป็นไปตามที่บริษัทกำหนด ***</p>
+    <p>• กรุณาชำระเงินมัดจำ <span id="n-pct"></span>% เพื่อยืนยันการจองคิวรถขนย้าย</p>
+    <p class="bank">รับประกันสินค้า 30% ของราคาค่าขนย้ายเท่านั้น</p>
+    <p class="bank" id="q-bank"></p>
+  </div>
+
+  <div class="sign">
+    <div><div class="nm" id="q-signer"></div><div>ผู้เสนอราคา: นินจามูฟ</div></div>
+    <div><div class="line"></div><div>ผู้ว่าจ้าง / ลูกค้า</div></div>
+  </div>
+  <div class="ft">นินจามูฟ (Ninja Move) - บริการขนย้ายมืออาชีพ | บริษัท นิลมังกร เทค จำกัด</div>
+</div>
+
+<!-- แปลง HTML เป็นรูป (เวอร์ชันล็อกไว้) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+/* ★ ใส่ URL เว็บแอป Apps Script (ตัวเดียวกับ SCRIPT_URL ใน assets/js/script.js) ★ */
+const SCRIPT_URL = 'ใส่ URL เว็บแอป Apps Script ตรงนี้';
+
+const $ = (id) => document.getElementById(id);
+const fmt = (n) => Number(n).toLocaleString('en-US');
+const statusEl = $('status');
+let quoteNo = '';
+
+function fail(msg) { statusEl.textContent = msg; statusEl.className = 'err'; }
+
+function render(d) {
+  quoteNo = d.quoteNo;
+  $('q-no').textContent = d.quoteNo;
+  $('q-date').textContent = d.quoteDate;
+  $('q-name').textContent = d.name;
+  $('q-phone').textContent = d.phone;
+  $('q-move').textContent = d.moveDate || '-';
+  $('q-svc').textContent = d.serviceType || '-';
+  $('q-from').textContent = d.from || '-';
+  $('q-to').textContent = d.to || '-';
+  $('q-items').textContent = d.items || '-';
+  $('q-vehicle').textContent = d.vehicle || 'ตามตกลง';
+  $('q-note').textContent = d.note || '';
+  $('q-bank').textContent = d.bank || '';
+  $('q-signer').textContent = d.signer || '';
+
+  const box = $('q-lines');
+  box.innerHTML = '';
+  (d.lines || []).forEach((t) => {
+    const row = document.createElement('div'); row.className = 'ln';
+    const ck = document.createElement('span'); ck.className = 'ck'; ck.textContent = '✓';
+    const tx = document.createElement('span'); tx.textContent = t;
+    row.append(ck, tx); box.appendChild(row);
+  });
+
+  const price = Number(d.price) || 0;
+  const pct = Number(d.depositPct) || 50;
+  const deposit = Math.round(price * pct / 100);
+  $('q-price').textContent = fmt(price);
+  $('t-total').textContent = fmt(price) + '.00';
+  $('t-pct').textContent = pct; $('n-pct').textContent = pct;
+  $('t-deposit').textContent = fmt(deposit) + '.00';
+  $('t-balance').textContent = fmt(price - deposit) + '.00';
+
+  $('paper').hidden = false;
+  statusEl.hidden = true;
+  $('btnDownload').disabled = false;
+  $('btnShare').disabled = false;
+  document.title = 'ใบเสนอราคา ' + d.quoteNo + ' | นินจามูฟ';
+}
+
+async function load() {
+  const token = new URLSearchParams(location.hash.slice(1)).get('t');
+  if (!token) return fail('ลิงก์ไม่ถูกต้อง (ไม่พบรหัสใบเสนอราคา) กรุณาเปิดจากลิงก์ใน Telegram');
+  if (SCRIPT_URL.indexOf('https://') !== 0) return fail('ยังไม่ได้ตั้งค่า SCRIPT_URL ในไฟล์ quote.html');
+  try {
+    const res = await fetch(SCRIPT_URL + '?quote=' + encodeURIComponent(token));
+    const json = await res.json();
+    if (!json.ok) return fail('ไม่พบใบเสนอราคานี้ (ลิงก์อาจไม่ถูกต้องหรือถูกยกเลิก)');
+    render(json.data);
+  } catch (e) {
+    fail('โหลดข้อมูลไม่สำเร็จ ลองรีเฟรชหน้านี้ หรือตรวจ URL เว็บแอป Apps Script');
+  }
+}
+
+async function makeBlob() {
+  if (document.fonts && document.fonts.ready) await document.fonts.ready;
+  const canvas = await html2canvas($('paper'), { scale: 2, backgroundColor: '#ffffff', useCORS: true });
+  return new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+}
+const fileName = () => 'NinjaMove-Quotation-' + quoteNo + '.png';
+
+$('btnDownload').addEventListener('click', async (e) => {
+  const btn = e.currentTarget; btn.disabled = true;
+  try {
+    const blob = await makeBlob();
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = fileName();
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  } catch (err) { alert('สร้างรูปไม่สำเร็จ ลองกด "พิมพ์ / PDF" แทน'); }
+  btn.disabled = false;
+});
+
+$('btnShare').addEventListener('click', async (e) => {
+  const btn = e.currentTarget; btn.disabled = true;
+  try {
+    const blob = await makeBlob();
+    const file = new File([blob], fileName(), { type: 'image/png' });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({ files: [file], title: 'ใบเสนอราคา นินจามูฟ ' + quoteNo });
+    } else {
+      alert('เครื่องนี้ไม่รองรับการแชร์ไฟล์ กรุณาใช้ปุ่ม "ดาวน์โหลดเป็นรูป" แล้วส่งรูปเอง');
+    }
+  } catch (err) { /* ผู้ใช้ปิดหน้าต่างแชร์ */ }
+  btn.disabled = false;
+});
+
+$('btnPrint').addEventListener('click', () => window.print());
+$('btnEdit').addEventListener('click', (e) => {
+  const p = $('paper'); const on = p.contentEditable !== 'true';
+  p.contentEditable = on; e.currentTarget.textContent = on ? '✅ เสร็จสิ้นการแก้ไข' : '✏️ แก้ข้อความ';
+});
+
+load();
+</script>
+</body>
+</html>
