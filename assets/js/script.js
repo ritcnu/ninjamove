@@ -111,7 +111,6 @@ function initSmoothScroll() {
       const target = document.querySelector(targetId);
       if (!target) return;
       e.preventDefault();
-       if (!contactForm.checkValidity()) return;
       const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 72;
       const top = target.getBoundingClientRect().top + window.scrollY - navH;
       window.scrollTo({ top, behavior: 'smooth' });
@@ -329,7 +328,7 @@ function initBackToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 }
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwBE6V3MyZqDxS_w5iOL0bc2GKujjYuPi2JdxrijqrLMaqzj62D2Lpl4rjUEpcOMP1JZQ/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby9egRkibvoKq966CqZJKMh05CslSKD5wvRteXPbSL7xBD840mO0UUrhSqTDWSeGKIVAQ/exec";
 
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
@@ -346,7 +345,7 @@ if (contactForm) {
       body: formData
     })
       .then(() => {
-        alert('ส่งข้อความสำเร็จ! ทีมงาน NinjaMove จะติดต่อกลับโดยเร็วที่สุด');
+        alert('ส่งข้อความสำเร็จ! ทีมงาน AdClinic จะติดต่อกลับโดยเร็วที่สุด');
         contactForm.reset();
       })
       .catch((error) => {
